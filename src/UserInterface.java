@@ -38,8 +38,6 @@ public class UserInterface {
     }
 
 
-
-
     private void expenseFlow() {
         System.out.println("type q - to cancel \nWrite expense category (food, electricity..): ");
         String category = scanner.nextLine();
@@ -68,21 +66,26 @@ public class UserInterface {
     }
 
 
-
-
-
-
-
+    /**
+     * Prompts the user for valid money input until a valid value is entered.
+     * The input should be in the format €€.¢¢ (e.g., €128.44).
+     * If the input is invalid, it throws an exception and prompts the user again
+     *
+     * @return a valid Money object based on user input.
+     */
     private Money promptValidMoneyInput() {
-        Money money = null;
-        boolean validMoney = false;
+        Money money = null; // Initialize money object to null
+        boolean validMoney = false; // Flag to check if valid money input is provided
+
+        // Continue prompting until valid input is provided.
         while (!validMoney) {
             try {
                 System.out.println("Enter amount (format: €€.¢¢): ");
                 String amount = scanner.nextLine();
                 money = new Money(amount);
-                validMoney = true;
+                validMoney = true; // If no exception, mark the input as valid
             } catch (IllegalArgumentException e) {
+                // Catch and print error if the format is invalid, then loop again
                 System.out.println(e.getMessage() + "\n");
 
             }
