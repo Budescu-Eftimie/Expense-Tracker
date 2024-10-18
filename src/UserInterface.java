@@ -50,21 +50,34 @@ public class UserInterface {
 
 
         System.out.println(money.toString() + " -------------------");
-        System.out.println("If today type enter otherwise type the date:");
-        System.out.println("format dd.mm.yyyy");
-        String dateString = scanner.nextLine();
-        LocalDate today = LocalDate.now();
-        if (!dateString.isEmpty()) {
-            try {
-                today = LocalDate.parse(dateString, DateTimeFormatter.ofPattern("dd.MM.yyyy"));
-            } catch (DateTimeParseException e) {
-                System.out.println("Invalid date format");
-            }
-        }
+
+
+        LocalDate today = promptForDateInput();
+
 
         Expense expense = new Expense(category, money, today);
     }
 
+
+    private LocalDate promptForDateInput() {
+        LocalDate date = LocalDate.now();  // Default to today's date
+        boolean validDate = false;
+
+        System.out.println("If today press enter otherwise type the date (format: dd.MM.yyyy):");
+        while (!validDate) {
+            String dateString = scanner.nextLine();
+            if (dateString.isEmpty()) {
+                return date;  // Return today's date if input is empty
+            }
+            try {
+                date = LocalDate.parse(dateString, DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+                validDate = true;
+            } catch (DateTimeParseException e) {
+                System.out.println("Invalid date format. Please use dd.MM.yyyy or press enter for today's date.");
+            }
+        }
+        return date;
+    }
 
     /**
      * Prompts the user for valid money input until a valid value is entered.
