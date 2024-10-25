@@ -55,7 +55,7 @@ public class UserInterface {
         LocalDate today = promptForDateInput();
 
 
-        Expense expense = new Expense(category, money, today);
+        Expense expense = new Expense(category, today, money);
     }
 
 
